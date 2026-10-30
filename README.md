@@ -85,7 +85,6 @@ scripts/train_supervised.sh <out> <init> <start step> <total steps>   # same, re
 
 - Maps: 1,558 for training, 82 for validation and 36 held out by whole set, including the maps
   in `data/real_maps.json`. Sources: `scripts/fetch_maps.py` and `scripts/fetch_osz.py`.
-  Bad Apple!! was in the original model's training set by mistake, so its results aren't clean.
 - Augmentation: random plays, small zoom and shift errors, brightness, gamma, blur and noise,
   jittered and skipped frames, and extra streams and stacks.
 - The original model (`osunet-lazer.safetensors`) trained for 24,000 steps (about 2.5 hours on an
