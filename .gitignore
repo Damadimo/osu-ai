@@ -1,0 +1,30 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+
+# downloaded maps, rendered frames, runs (large or third-party); keep the map lists
+data/*
+!data/real_maps.json
+!data/train_maps.json
+!data/corpus_sets.json
+runs/
+run/
+
+# checkpoints and LoRA adapters; keep the model that plays
+models/*
+!models/osunet-lazer.safetensors
+adapters/
+
+# build output and the local signing keychain (holds a private key)
+hands_app/build/
+hands_app/OsuHands.app/
+hands_app/signing/
+tools/*/bin/
+tools/*/obj/
+
+# long research notes, kept locally
+docs/

@@ -1,0 +1,709 @@
+[
+ {
+  "sr": 2.51391,
+  "beatmap_id": 1474945,
+  "name": "Nogizaka46 - Yubi Bouenkyou ~Anime-ban~ [~Doormat's Normal~]",
+  "length_s": 84,
+  "osu": "data/train_osu/1474945.osu"
+ },
+ {
+  "sr": 2.51538,
+  "beatmap_id": 804268,
+  "name": "Agnete Kjolsrud - Get Jinxed [SrTarra's Silver]",
+  "length_s": 118,
+  "osu": "data/train_osu/804268.osu"
+ },
+ {
+  "sr": 2.52326,
+  "beatmap_id": 958863,
+  "name": "HO-KAGO TEA TIME - Kira Kira Days [Normal!!]",
+  "length_s": 90,
+  "osu": "data/train_osu/958863.osu"
+ },
+ {
+  "sr": 2.53304,
+  "beatmap_id": 1956842,
+  "name": "HAG - Colorful [Normal]",
+  "length_s": 128,
+  "osu": "data/train_osu/1956842.osu"
+ },
+ {
+  "sr": 2.55049,
+  "beatmap_id": 1385400,
+  "name": "Panda Eyes - ILY [Hard]",
+  "length_s": 95,
+  "osu": "data/train_osu/1385400.osu"
+ },
+ {
+  "sr": 2.74559,
+  "beatmap_id": 2444152,
+  "name": "SPYAIR - Imagination (TV Size) [Normal]",
+  "length_s": 89,
+  "osu": "data/train_osu/2444152.osu"
+ },
+ {
+  "sr": 2.75752,
+  "beatmap_id": 1442772,
+  "name": "Hige Driver - Miracle Sugite Yabai (feat. shully) [Hard]",
+  "length_s": 88,
+  "osu": "data/train_osu/1442772.osu"
+ },
+ {
+  "sr": 2.78676,
+  "beatmap_id": 1594554,
+  "name": "XXXTENTACION - SAD! [Hard]",
+  "length_s": 72,
+  "osu": "data/train_osu/1594554.osu"
+ },
+ {
+  "sr": 2.88594,
+  "beatmap_id": 1272916,
+  "name": "Kenshi Yonezu - Peace Sign (TV edit.) [HC's Advanced]",
+  "length_s": 89,
+  "osu": "data/train_osu/1272916.osu"
+ },
+ {
+  "sr": 2.90547,
+  "beatmap_id": 315551,
+  "name": "Rostik - Liquid (Paul Rosenthal Remix) [Hard]",
+  "length_s": 142,
+  "osu": "data/train_osu/315551.osu"
+ },
+ {
+  "sr": 2.97615,
+  "beatmap_id": 515642,
+  "name": "The Living Tombstone - Five Nights at Freddy's [ColdTooth's Advanced]",
+  "length_s": 150,
+  "osu": "data/train_osu/515642.osu"
+ },
+ {
+  "sr": 2.98898,
+  "beatmap_id": 724337,
+  "name": "AKINO from bless4 & CHiCO with HoneyWorks - MIIRO vs. Ai no Scenario [Walao's Advanced]",
+  "length_s": 78,
+  "osu": "data/train_osu/724337.osu"
+ },
+ {
+  "sr": 3.0191,
+  "beatmap_id": 489620,
+  "name": "TK from Ling tosite sigure - unravel (TV edit) [Gex's Hard]",
+  "length_s": 73,
+  "osu": "data/train_osu/489620.osu"
+ },
+ {
+  "sr": 3.13132,
+  "beatmap_id": 540955,
+  "name": "Ikimono Gakari - Netsujou no Spectrum [Kibbleru's Hard]",
+  "length_s": 88,
+  "osu": "data/train_osu/540955.osu"
+ },
+ {
+  "sr": 3.16174,
+  "beatmap_id": 2449786,
+  "name": "The Cab - Angel With A Shotgun (Sped Up Ver.) [Hard]",
+  "length_s": 74,
+  "osu": "data/train_osu/2449786.osu"
+ },
+ {
+  "sr": 3.16563,
+  "beatmap_id": 1959587,
+  "name": "toby fox - Last Goodbye [Hard]",
+  "length_s": 80,
+  "osu": "data/train_osu/1959587.osu"
+ },
+ {
+  "sr": 3.18253,
+  "beatmap_id": 1994942,
+  "name": "Getter Jaani - Rockefeller Street (Nightcore Mix) [Nikakis' Hard]",
+  "length_s": 89,
+  "osu": "data/train_osu/1994942.osu"
+ },
+ {
+  "sr": 3.20206,
+  "beatmap_id": 1125885,
+  "name": "Seiryu - BLUE DRAGON [Silver's Advanced]",
+  "length_s": 133,
+  "osu": "data/train_osu/1125885.osu"
+ },
+ {
+  "sr": 3.2065,
+  "beatmap_id": 2395958,
+  "name": "Suzuki Masayuki - DADDY ! DADDY ! DO ! feat. Suzuki Airi (TV Size) [Fixxis' Hard?]",
+  "length_s": 88,
+  "osu": "data/train_osu/2395958.osu"
+ },
+ {
+  "sr": 3.25138,
+  "beatmap_id": 1848456,
+  "name": "Brian The Sun - Lonely Go! (TV Size) [Ayyri's Advanced]",
+  "length_s": 88,
+  "osu": "data/train_osu/1848456.osu"
+ },
+ {
+  "sr": 3.26196,
+  "beatmap_id": 1587910,
+  "name": "TheFatRat ft. Laura Brehm - MAYDAY (Nightcore Mix) [Hard]",
+  "length_s": 78,
+  "osu": "data/train_osu/1587910.osu"
+ },
+ {
+  "sr": 3.29274,
+  "beatmap_id": 1594729,
+  "name": "Co shu Nie - asphyxia (TV edit) [Hard]",
+  "length_s": 83,
+  "osu": "data/train_osu/1594729.osu"
+ },
+ {
+  "sr": 3.31999,
+  "beatmap_id": 391521,
+  "name": "Suzuki Konomi - This game (TV Size) [Sekai's Hard Game]",
+  "length_s": 84,
+  "osu": "data/train_osu/391521.osu"
+ },
+ {
+  "sr": 3.35907,
+  "beatmap_id": 1970115,
+  "name": "Nanahira - Chikatto Chika Chika [Hard]",
+  "length_s": 78,
+  "osu": "data/train_osu/1970115.osu"
+ },
+ {
+  "sr": 3.4279,
+  "beatmap_id": 453080,
+  "name": "Aoi Eir - IGNITE (TV size ver.) [Hard]",
+  "length_s": 87,
+  "osu": "data/train_osu/453080.osu"
+ },
+ {
+  "sr": 3.44376,
+  "beatmap_id": 2640143,
+  "name": "Eve - Kaikai Kitan (TV Size) [Chiga's Hard]",
+  "length_s": 83,
+  "osu": "data/train_osu/2640143.osu"
+ },
+ {
+  "sr": 3.48604,
+  "beatmap_id": 649539,
+  "name": "FLOWxGRANRODEO - 7 -seven- -TV SIZE - [Hard]",
+  "length_s": 88,
+  "osu": "data/train_osu/649539.osu"
+ },
+ {
+  "sr": 3.51971,
+  "beatmap_id": 979230,
+  "name": "Komiya Mao - (can you) understand me? [hard?]",
+  "length_s": 84,
+  "osu": "data/train_osu/979230.osu"
+ },
+ {
+  "sr": 3.5793,
+  "beatmap_id": 2044365,
+  "name": "Oomori Seiko - JUSTadICE (TV Size) [Kowari's Hard]",
+  "length_s": 88,
+  "osu": "data/train_osu/2044365.osu"
+ },
+ {
+  "sr": 3.59679,
+  "beatmap_id": 190951,
+  "name": "Saiya - Remote Control [lolcubes' Hard]",
+  "length_s": 123,
+  "osu": "data/train_osu/190951.osu"
+ },
+ {
+  "sr": 3.63308,
+  "beatmap_id": 2237468,
+  "name": "yuikonnu - Yume Chizu [Hard]",
+  "length_s": 97,
+  "osu": "data/train_osu/2237468.osu"
+ },
+ {
+  "sr": 3.63579,
+  "beatmap_id": 1623206,
+  "name": "Aitsuki Nakuru - Monochrome Butterfly [Shunao's Hard]",
+  "length_s": 84,
+  "osu": "data/train_osu/1623206.osu"
+ },
+ {
+  "sr": 3.68124,
+  "beatmap_id": 199049,
+  "name": "Yiruma & Skullee - River Flows In You (A Love Note) [Love Note]",
+  "length_s": 139,
+  "osu": "data/train_osu/199049.osu"
+ },
+ {
+  "sr": 3.69948,
+  "beatmap_id": 1266635,
+  "name": "3 Nen E Gumi Utatan (Nagisa & Kayano & Karuma & Isogai & Maehara) - Bye Bye YESTERDAY [Voli's Hard]",
+  "length_s": 91,
+  "osu": "data/train_osu/1266635.osu"
+ },
+ {
+  "sr": 3.81283,
+  "beatmap_id": 844663,
+  "name": "Stonebank - The Pressure [CBH's Hard]",
+  "length_s": 80,
+  "osu": "data/train_osu/844663.osu"
+ },
+ {
+  "sr": 3.81954,
+  "beatmap_id": 817269,
+  "name": "Ni-Sokkususu - Blade Dance [Hard]",
+  "length_s": 87,
+  "osu": "data/train_osu/817269.osu"
+ },
+ {
+  "sr": 4.10221,
+  "beatmap_id": 1272266,
+  "name": "RADWIMPS - Yume Tourou [Walao's Light Insane]",
+  "length_s": 101,
+  "osu": "data/train_osu/1272266.osu"
+ },
+ {
+  "sr": 4.11423,
+  "beatmap_id": 2969237,
+  "name": "DM DOKURO - SAVE (Encore) [browiec & Kuki's Insane]",
+  "length_s": 85,
+  "osu": "data/train_osu/2969237.osu"
+ },
+ {
+  "sr": 4.13252,
+  "beatmap_id": 975982,
+  "name": "FLOW - GO!!! ~NARUTO OPENING MIX~ [Ipas' Light Insane]",
+  "length_s": 89,
+  "osu": "data/train_osu/975982.osu"
+ },
+ {
+  "sr": 4.16008,
+  "beatmap_id": 2281639,
+  "name": "Vickeblanka - Black Catcher (TV Size) [FuJu's Insane]",
+  "length_s": 81,
+  "osu": "data/train_osu/2281639.osu"
+ },
+ {
+  "sr": 4.18958,
+  "beatmap_id": 1136506,
+  "name": "mimimemeMIMI - Harebare Fanfare [Hazu's Insane]",
+  "length_s": 88,
+  "osu": "data/train_osu/1136506.osu"
+ },
+ {
+  "sr": 4.19247,
+  "beatmap_id": 1848250,
+  "name": "Will Stetson - Snow Halation (feat. BeasttrollMC) [Yuri-'s Insane]",
+  "length_s": 106,
+  "osu": "data/train_osu/1848250.osu"
+ },
+ {
+  "sr": 4.20197,
+  "beatmap_id": 2347052,
+  "name": "Sayuri - Sore wa Chiisana Hikari no Youna (TV Size) [Revival]",
+  "length_s": 83,
+  "osu": "data/train_osu/2347052.osu"
+ },
+ {
+  "sr": 4.23149,
+  "beatmap_id": 833638,
+  "name": "NICO Touches the Walls - Niwaka Ame ni mo Makezu [Insane]",
+  "length_s": 113,
+  "osu": "data/train_osu/833638.osu"
+ },
+ {
+  "sr": 4.25643,
+  "beatmap_id": 2756887,
+  "name": "YOASOBI - Kaibutsu (TV Size) [PikA's Insane ft. Kuro]",
+  "length_s": 86,
+  "osu": "data/train_osu/2756887.osu"
+ },
+ {
+  "sr": 4.26576,
+  "beatmap_id": 1618998,
+  "name": "dark cat - BUBBLE TEA (feat. juu & cinders) [Collab Light Insane]",
+  "length_s": 126,
+  "osu": "data/train_osu/1618998.osu"
+ },
+ {
+  "sr": 4.26889,
+  "beatmap_id": 353597,
+  "name": "Hello Sleepwalkers - Goya no Machiawase (TV Size) [Insane]",
+  "length_s": 88,
+  "osu": "data/train_osu/353597.osu"
+ },
+ {
+  "sr": 4.31709,
+  "beatmap_id": 1963417,
+  "name": "DJ Fresh - Gold Dust [NiNo's Insane]",
+  "length_s": 87,
+  "osu": "data/train_osu/1963417.osu"
+ },
+ {
+  "sr": 4.36029,
+  "beatmap_id": 2129147,
+  "name": "Nashimoto Ui - AaAaAaAAaAaAAa [SMOKELIND's InSaNE]",
+  "length_s": 104,
+  "osu": "data/train_osu/2129147.osu"
+ },
+ {
+  "sr": 4.38135,
+  "beatmap_id": 1017602,
+  "name": "NOMA - Brain Power [Exote's EXHAUST]",
+  "length_s": 105,
+  "osu": "data/train_osu/1017602.osu"
+ },
+ {
+  "sr": 4.39229,
+  "beatmap_id": 1726474,
+  "name": "Simple Plan - You Suck At Love (Speed Up Ver.) [P4nde's Insane]",
+  "length_s": 77,
+  "osu": "data/train_osu/1726474.osu"
+ },
+ {
+  "sr": 4.4212,
+  "beatmap_id": 1074466,
+  "name": "GRANRODEO - Can Do (TV Size) [Insane]",
+  "length_s": 87,
+  "osu": "data/train_osu/1074466.osu"
+ },
+ {
+  "sr": 4.4773,
+  "beatmap_id": 954995,
+  "name": "Suzuki Konomi - Redo [xxdeathx's Insane]",
+  "length_s": 89,
+  "osu": "data/train_osu/954995.osu"
+ },
+ {
+  "sr": 4.60844,
+  "beatmap_id": 1556636,
+  "name": "ONE OK ROCK - Bombs away [Kalibe's Insane]",
+  "length_s": 73,
+  "osu": "data/train_osu/1556636.osu"
+ },
+ {
+  "sr": 4.61188,
+  "beatmap_id": 949888,
+  "name": "Chino(CV.Minase Inori) - Shinsaku no Shiawase wa Kochira! [Son's Insane]",
+  "length_s": 124,
+  "osu": "data/train_osu/949888.osu"
+ },
+ {
+  "sr": 4.61341,
+  "beatmap_id": 1053519,
+  "name": "*namirin - Koi no Hime Hime Pettanko [Insane]",
+  "length_s": 92,
+  "osu": "data/train_osu/1053519.osu"
+ },
+ {
+  "sr": 4.65163,
+  "beatmap_id": 2405223,
+  "name": "ONE OK ROCK - One by One [Insane]",
+  "length_s": 100,
+  "osu": "data/train_osu/2405223.osu"
+ },
+ {
+  "sr": 4.71377,
+  "beatmap_id": 2098548,
+  "name": "Bliitzit - Team Magma & Aqua Leader Battle Theme (Unofficial) [SMOKELIND's Insane]",
+  "length_s": 74,
+  "osu": "data/train_osu/2098548.osu"
+ },
+ {
+  "sr": 4.73398,
+  "beatmap_id": 1572367,
+  "name": "Ni-Sokkususu - Blade Dance [NiNo's Insane]",
+  "length_s": 142,
+  "osu": "data/train_osu/1572367.osu"
+ },
+ {
+  "sr": 4.74177,
+  "beatmap_id": 1570183,
+  "name": "Mika Nakashima - KISS OF DEATH (Produced by HYDE) [Darling]",
+  "length_s": 87,
+  "osu": "data/train_osu/1570183.osu"
+ },
+ {
+  "sr": 4.74191,
+  "beatmap_id": 1020725,
+  "name": "MYTH & ROID - Paradisus-Paradoxum [deetz' Less Insane]",
+  "length_s": 82,
+  "osu": "data/train_osu/1020725.osu"
+ },
+ {
+  "sr": 4.75459,
+  "beatmap_id": 2757596,
+  "name": "Nakanoke no Itsutsugo - Gotoubun no Katachi (TV Size) [Kuse's Extra: Ichika]",
+  "length_s": 87,
+  "osu": "data/train_osu/2757596.osu"
+ },
+ {
+  "sr": 4.78914,
+  "beatmap_id": 1417132,
+  "name": "ClariS - SHIORI -TV size mix- [Harustrata's Insane]",
+  "length_s": 88,
+  "osu": "data/train_osu/1417132.osu"
+ },
+ {
+  "sr": 4.82475,
+  "beatmap_id": 987230,
+  "name": "Porno Graffitti - THE DAY [Frey's Insane]",
+  "length_s": 88,
+  "osu": "data/train_osu/987230.osu"
+ },
+ {
+  "sr": 4.8308,
+  "beatmap_id": 517432,
+  "name": "Hige Driver join. SELEN - Dadadadadadadadadada [INSANE]",
+  "length_s": 94,
+  "osu": "data/train_osu/517432.osu"
+ },
+ {
+  "sr": 4.83237,
+  "beatmap_id": 1041874,
+  "name": "cYsmix - Classic Pursuit [Insane]",
+  "length_s": 138,
+  "osu": "data/train_osu/1041874.osu"
+ },
+ {
+  "sr": 4.85858,
+  "beatmap_id": 614215,
+  "name": "JO*STARS ~TOMMY, Coda, JIN~ - JoJo Sono Chi no Kioku~end of THE WORLD~ [Insane]",
+  "length_s": 76,
+  "osu": "data/train_osu/614215.osu"
+ },
+ {
+  "sr": 4.9387,
+  "beatmap_id": 1696087,
+  "name": "THE ORAL CIGARETTES - Mou Ii kai? [Frontier's Insane]",
+  "length_s": 84,
+  "osu": "data/train_osu/1696087.osu"
+ },
+ {
+  "sr": 4.9642,
+  "beatmap_id": 1608897,
+  "name": "Komiya Mao - (can you) understand me? [toybot's expert?]",
+  "length_s": 84,
+  "osu": "data/train_osu/1608897.osu"
+ },
+ {
+  "sr": 5.03315,
+  "beatmap_id": 846259,
+  "name": "Shawn Wasabi - Marble Soda [Crier's Extra]",
+  "length_s": 148,
+  "osu": "data/train_osu/846259.osu"
+ },
+ {
+  "sr": 5.03385,
+  "beatmap_id": 1608726,
+  "name": "Sex Whales & Fraxo - Dead To Me (Instrumental) [NiNo's Insane]",
+  "length_s": 67,
+  "osu": "data/train_osu/1608726.osu"
+ },
+ {
+  "sr": 5.07703,
+  "beatmap_id": 2861378,
+  "name": "HO-KAGO TEA TIME - Kira Kira Days (Cut Ver.) [Reform's Expert]",
+  "length_s": 90,
+  "osu": "data/train_osu/2861378.osu"
+ },
+ {
+  "sr": 5.12629,
+  "beatmap_id": 744740,
+  "name": "Doma Umaru [CV.Tanaka Aimi] - Kakushinteki*Metamaruphose! [wcx's Insane]",
+  "length_s": 88,
+  "osu": "data/train_osu/744740.osu"
+ },
+ {
+  "sr": 5.1882,
+  "beatmap_id": 2023927,
+  "name": "umu. - Ai no Sukima [Expert]",
+  "length_s": 103,
+  "osu": "data/train_osu/2023927.osu"
+ },
+ {
+  "sr": 5.19354,
+  "beatmap_id": 891762,
+  "name": "Stonebank - All Night [Insane]",
+  "length_s": 113,
+  "osu": "data/train_osu/891762.osu"
+ },
+ {
+  "sr": 5.24769,
+  "beatmap_id": 1890237,
+  "name": "Nakanoke no Itsutsugo - Gotoubun no Kimochi (TV Size) [My Miku]",
+  "length_s": 87,
+  "osu": "data/train_osu/1890237.osu"
+ },
+ {
+  "sr": 5.29242,
+  "beatmap_id": 780914,
+  "name": "Feint - Vagrant (feat. Veela) [Still Alive]",
+  "length_s": 79,
+  "osu": "data/train_osu/780914.osu"
+ },
+ {
+  "sr": 5.34711,
+  "beatmap_id": 848345,
+  "name": "Primary - Sweets Weekend [Sweet Neko]",
+  "length_s": 92,
+  "osu": "data/train_osu/848345.osu"
+ },
+ {
+  "sr": 5.40148,
+  "beatmap_id": 221950,
+  "name": "Sagara Kokoro - Hoshizora no Ima [S.S]",
+  "length_s": 95,
+  "osu": "data/train_osu/221950.osu"
+ },
+ {
+  "sr": 5.41759,
+  "beatmap_id": 851811,
+  "name": "Kano - Stella-rium [Crystal's Extra]",
+  "length_s": 85,
+  "osu": "data/train_osu/851811.osu"
+ },
+ {
+  "sr": 5.42802,
+  "beatmap_id": 1690359,
+  "name": "Will Stetson - Super Driver [Rolniczy's Extra]",
+  "length_s": 95,
+  "osu": "data/train_osu/1690359.osu"
+ },
+ {
+  "sr": 5.49766,
+  "beatmap_id": 2166311,
+  "name": "ONE OK ROCK - Start Again [Onlybiscuit's Extra]",
+  "length_s": 111,
+  "osu": "data/train_osu/2166311.osu"
+ },
+ {
+  "sr": 5.54997,
+  "beatmap_id": 2480904,
+  "name": "Suzuki Konomi - Realize (TV Size) [Reform's Expert]",
+  "length_s": 84,
+  "osu": "data/train_osu/2480904.osu"
+ },
+ {
+  "sr": 5.59265,
+  "beatmap_id": 2485259,
+  "name": "Nogizaka46 - Yubi Bouenkyou (TV Size) [Delis' Extra]",
+  "length_s": 85,
+  "osu": "data/train_osu/2485259.osu"
+ },
+ {
+  "sr": 5.62178,
+  "beatmap_id": 1989839,
+  "name": "LiSA - Gurenge (TV Size) [Kibbleru's Extra]",
+  "length_s": 81,
+  "osu": "data/train_osu/1989839.osu"
+ },
+ {
+  "sr": 5.62789,
+  "beatmap_id": 831380,
+  "name": "THE ORAL CIGARETTES - Kyouran Hey Kids!! [wkyik's Extra]",
+  "length_s": 88,
+  "osu": "data/train_osu/831380.osu"
+ },
+ {
+  "sr": 5.64938,
+  "beatmap_id": 404440,
+  "name": "Lite Show Magic (t+pazolite vs C-Show) - Crack Traxxxx [Pantsu's Another]",
+  "length_s": 107,
+  "osu": "data/train_osu/404440.osu"
+ },
+ {
+  "sr": 5.68721,
+  "beatmap_id": 1829998,
+  "name": "Okazaki Taiiku - Kimi no Bouken (TV Size) [Seto's Expert]",
+  "length_s": 86,
+  "osu": "data/train_osu/1829998.osu"
+ },
+ {
+  "sr": 5.6927,
+  "beatmap_id": 1400414,
+  "name": "Reol - MONSTER [DARKNESS]",
+  "length_s": 96,
+  "osu": "data/train_osu/1400414.osu"
+ },
+ {
+  "sr": 5.72903,
+  "beatmap_id": 943988,
+  "name": "NIGHTMARE - the WORLD  ~TV Size~ [Keikakudoori]",
+  "length_s": 77,
+  "osu": "data/train_osu/943988.osu"
+ },
+ {
+  "sr": 5.73886,
+  "beatmap_id": 468994,
+  "name": "Warak - REANIMATE [Mythol's Extra]",
+  "length_s": 149,
+  "osu": "data/train_osu/468994.osu"
+ },
+ {
+  "sr": 5.73921,
+  "beatmap_id": 980431,
+  "name": "TrySail - High Free Spirits -TV.Ver- [Skystar's Extra]",
+  "length_s": 87,
+  "osu": "data/train_osu/980431.osu"
+ },
+ {
+  "sr": 5.80109,
+  "beatmap_id": 1843653,
+  "name": "dj TAKA - quaver [Fiery's Extra]",
+  "length_s": 61,
+  "osu": "data/train_osu/1843653.osu"
+ },
+ {
+  "sr": 5.88197,
+  "beatmap_id": 351996,
+  "name": "Himeringo - Yotsuya-san ni Yoroshiku [Skystar's Extra]",
+  "length_s": 141,
+  "osu": "data/train_osu/351996.osu"
+ },
+ {
+  "sr": 5.90367,
+  "beatmap_id": 1651290,
+  "name": "THE ORAL CIGARETTES - ReI [A r M i N's Extra]",
+  "length_s": 83,
+  "osu": "data/train_osu/1651290.osu"
+ },
+ {
+  "sr": 5.95285,
+  "beatmap_id": 2058788,
+  "name": "Oomori Seiko - JUSTadICE (TV Size) [Extreme]",
+  "length_s": 88,
+  "osu": "data/train_osu/2058788.osu"
+ },
+ {
+  "sr": 6.09832,
+  "beatmap_id": 1501472,
+  "name": "I SEE MONSTAS - Holdin On (Skrillex and Nero Remix) [Immortal]",
+  "length_s": 102,
+  "osu": "data/train_osu/1501472.osu"
+ },
+ {
+  "sr": 6.1417,
+  "beatmap_id": 1793684,
+  "name": "TK from Ling tosite sigure - unravel (TV Size) [SSS Rated Ghoul]",
+  "length_s": 77,
+  "osu": "data/train_osu/1793684.osu"
+ },
+ {
+  "sr": 6.15719,
+  "beatmap_id": 1341959,
+  "name": "LONG SHOT PARTY - distance (NARUTO Ver.) [Hokage]",
+  "length_s": 88,
+  "osu": "data/train_osu/1341959.osu"
+ },
+ {
+  "sr": 6.1752,
+  "beatmap_id": 2410945,
+  "name": "TrySail - Utsuroi (Short Ver.) [browiec's Wisdom]",
+  "length_s": 83,
+  "osu": "data/train_osu/2410945.osu"
+ },
+ {
+  "sr": 6.18666,
+  "beatmap_id": 1018776,
+  "name": "Silent Siren - Soukai Rock [Lami's Extra]",
+  "length_s": 116,
+  "osu": "data/train_osu/1018776.osu"
+ }
+]
