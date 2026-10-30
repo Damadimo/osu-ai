@@ -1,0 +1,71 @@
+.gitignore
+  s_36936abec46660::t_c4793bd90ed6ca 20
+scripts/train_lazer.py
+  s_36936abec46660::t_63554f96936090 130,132-133,139
+  s_36936abec46660::t_f24b5be3df0b7a 178,185-187,190-193,195-197
+  s_36936abec46660::t_1a0bb21d47b3f8 279-280,284-291,297,362-364,376-378,380-382,386-390,402-411,431,466
+  s_36936abec46660::t_b778f1b8760ce2 173-176,179-183,188-189,204-208
+  s_36936abec46660::t_7da1bb9001d6bd 46-70,77,87,93-94,96,99
+  s_36936abec46660::t_ba2f7c30759802 292-294
+  s_36936abec46660::t_5ae61a685430ff 348
+  s_36936abec46660::t_b12735e87ff9db 234-235
+  s_36936abec46660::t_52cc69801d18e5 129,141,177,184,194,198-203,384,412,423-430
+  s_36936abec46660::t_7631ffd0f295df 143-144
+scripts/score_lazer.py
+  s_36936abec46660::t_88f52fc6acbb00 4,14,16,28,34-41,47
+osu_ai/lazer_frames.py
+  s_36936abec46660::t_dac2040161de7d 437-438,440-441,447-448,453-454
+  s_36936abec46660::t_e7aa2128a1c9ce 237-243
+  s_36936abec46660::t_7832122bd2fadd 403,405-424,426-429,433-436,439,442-446,449-452,455-459
+  s_36936abec46660::t_441b5df943c60c 142
+  s_36936abec46660::t_ae74325200b8cc 487
+  s_36936abec46660::t_1fa427d17d864a 461-463
+  s_36936abec46660::t_2849259d31e554 118-120,127
+  s_36936abec46660::t_9bcfa76747d654 404,425,430-432
+tests/test_backdrop.py
+  s_36936abec46660::t_9bcfa76747d654 30,32-37
+  s_36936abec46660::t_fc37ab406808e8 1-26,38-57,64
+  s_36936abec46660::t_29807e9e8aeb50 27-29,31
+  s_36936abec46660::t_f1cb530f098cf0 58-63,65-66
+  s_36936abec46660::t_cf7be63f7037c1 67-95
+scripts/prep_backgrounds.py
+  s_36936abec46660::t_73426e3cc2302a 48-49,58-59
+  s_36936abec46660::t_d97bfa73667608 70-104
+  s_36936abec46660::t_a1e5c2e49decff 145-155
+  s_36936abec46660::t_2efe4e78b1fe43 8-9,38-47,50-53,55-57,60,62-63,136-144
+  s_36936abec46660::t_a0daae96f3474e 4-7
+  s_36936abec46660::t_27c0be32d27afb 1-3,10-35,54,61,64-69,105-135,156-162
+  s_36936abec46660::t_c2dd2e1a9f7fae 36-37
+README.md
+  s_36936abec46660::t_2ea19deca51084 59-63
+  s_36936abec46660::t_80e894d3c0d426 3-6
+  s_36936abec46660::t_64b6efed66a70c 86-88,91-98
+  s_36936abec46660::t_fd20459ec73ed7 103-107
+  s_36936abec46660::t_367855d1ac317c 99
+  s_36936abec46660::t_0a7d4f3ece1c30 20-22
+scripts/lazer_setup.py
+  s_36936abec46660::t_31f6b9cd255a51 5,94-96,100
+osu_ai/backgrounds.py
+  s_36936abec46660::t_c2dd2e1a9f7fae 54-63,66-69
+  s_36936abec46660::t_3b0d9ffa147d22 70-78
+  s_36936abec46660::t_2efe4e78b1fe43 14-16,20-21,25,27-36
+  s_36936abec46660::t_fdaa6c2a184dd2 1-13,17-19,22-24,26,37-53,64-65
+osu_ai/lazer_sim.py
+  s_36936abec46660::t_7d285a172f707d 31,33-35,87
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5ca2bd2d34fac8be0988dfe20d3bdbdf28ce3ab1",
+  "prompts": {},
+  "sessions": {
+    "s_36936abec46660": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1553ee12-ddde-4758-8f46-81602fe3d86d",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Adam Abdalla <adam1.abdalla@gmail.com>"
+    }
+  }
+}
