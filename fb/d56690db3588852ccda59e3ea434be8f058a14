@@ -1,0 +1,140 @@
+.gitignore
+  s_36936abec46660::t_5f9bad2e45af2f 5-30
+  s_36936abec46660::t_281cdee6bc8c10 2-4
+hands_app/Sources/App/Overlay.swift
+  s_36936abec46660::t_0ef73d1778d704 1-185
+tools/lazer_oracle/ReplayOracle.cs
+  s_36936abec46660::t_5b4fdf3bd6238c 51
+  s_36936abec46660::t_bf2c05fef25c5a 1-50,52-224
+pyproject.toml
+  s_36936abec46660::t_5b4fdf3bd6238c 2-27
+  s_36936abec46660::t_705c1c6250b1b3 1,28-32
+scripts/view_run.py
+  s_36936abec46660::t_5b4fdf3bd6238c 18
+  s_36936abec46660::t_474174fe189c59 1-17,19-73
+tests/test_judge_lazer.py
+  s_36936abec46660::t_5b4fdf3bd6238c 19-246
+  s_36936abec46660::t_3041478d7a6e66 1-18,247-399
+scripts/score_vision.py
+  s_36936abec46660::t_5b4fdf3bd6238c 12-13
+  s_36936abec46660::t_c369257264e462 1-11,14-38
+osu_ai/tev_pilot.py
+  s_36936abec46660::t_5b4fdf3bd6238c 1-89
+scripts/probe_latency.py
+  s_36936abec46660::t_5b4fdf3bd6238c 16
+  s_36936abec46660::t_dd68c6cb026819 1-15,17-112
+tests/test_osr.py
+  s_36936abec46660::t_5b4fdf3bd6238c 16-195
+  s_36936abec46660::t_ccdde67c72eef3 1-15,196-201
+tests/test_rules_lazer.py
+  s_36936abec46660::t_5b4fdf3bd6238c 15-184
+  s_36936abec46660::t_d610c4ff184fd2 1-14,185-193
+scripts/watch.py
+  s_36936abec46660::t_5b4fdf3bd6238c 22-114
+  s_36936abec46660::t_54aee9da515b89 1-21,115-123
+scripts/fetch_osz.py
+  s_36936abec46660::t_5b4fdf3bd6238c 28
+  s_36936abec46660::t_3376a63be4049c 1-27,29-163
+hands_app/Sources/App/AppDelegate.swift
+  s_36936abec46660::t_6734ebdb68cc2e 11-42
+  s_36936abec46660::t_fdc97e19b2b056 1-10,43-118
+scripts/compare_real.py
+  s_36936abec46660::t_5b4fdf3bd6238c 17-19
+  s_36936abec46660::t_6275dcb9b5da56 1-16,20-73
+scripts/eval_tev.py
+  s_36936abec46660::t_5b4fdf3bd6238c 14-15
+  s_36936abec46660::t_f763a502519f4e 1-13,16-57
+scripts/build_dataset.py
+  s_36936abec46660::t_5b4fdf3bd6238c 18-19
+  s_36936abec46660::t_bb4f9e8c2fcb49 1-17,20-66
+osu_ai/hands_client.py
+  s_36936abec46660::t_5b4fdf3bd6238c 1-498
+tests/test_geometry.py
+  s_36936abec46660::t_5b4fdf3bd6238c 7
+  s_36936abec46660::t_ad2fce3caf75c9 1-6,8-81
+tests/test_hands_client.py
+  s_36936abec46660::t_5b4fdf3bd6238c 17
+  s_36936abec46660::t_1e9d4eadef591f 1-16,18-195
+scripts/make_frames.py
+  s_36936abec46660::t_5b4fdf3bd6238c 20
+  s_36936abec46660::t_c408fef056c7e8 1-19,21-61
+hands_app/Sources/App/RealBackend.swift
+  s_36936abec46660::t_6734ebdb68cc2e 12-148,153-154,158
+  s_36936abec46660::t_6bf906b56b4a2b 1-11,149-152,155-157,159-165
+scripts/analyze_reads.py
+  s_36936abec46660::t_5b4fdf3bd6238c 13
+  s_36936abec46660::t_593c4da0b9dec0 1-12,14-42
+scripts/prep_real.py
+  s_36936abec46660::t_5b4fdf3bd6238c 21-23
+  s_36936abec46660::t_5aaad94dce4780 1-20,24-69
+hands_app/Sources/App/main.swift
+  s_36936abec46660::t_5b4fdf3bd6238c 1-21
+  s_36936abec46660::t_aa712ef258c55a 22-39
+scripts/watch_vision.py
+  s_36936abec46660::t_5b4fdf3bd6238c 23-24
+  s_36936abec46660::t_e40eb4abdb8b1c 1-22,25-135
+scripts/train_vision.py
+  s_36936abec46660::t_5b4fdf3bd6238c 22-23
+  s_36936abec46660::t_63fe32670a8ecc 1-21,24-154
+tests/test_sim.py
+  s_36936abec46660::t_5b4fdf3bd6238c 7-11
+  s_36936abec46660::t_f724a4ced2160b 1-6,12-74
+scripts/train_lazer.py
+  s_36936abec46660::t_5b4fdf3bd6238c 94-296
+  s_36936abec46660::t_78dc4b560ca545 1-93,297-382
+README.md
+  s_36936abec46660::t_eb260da6e23ddd 1-31,33-34,37,39-82,85-98
+  s_36936abec46660::t_4ec478f9ec1c7e 32,35-36,38
+  s_36936abec46660::t_30ce0967c87e3f 83-84
+scripts/play_real.py
+  s_36936abec46660::t_5b4fdf3bd6238c 29-209
+  s_36936abec46660::t_530d63010c64f4 1-28,210-218
+scripts/lazer_shot.py
+  s_36936abec46660::t_5b4fdf3bd6238c 26-59
+  s_36936abec46660::t_1475c7fb07a23e 1-25,60-92
+scripts/probe_vision.py
+  s_36936abec46660::t_5b4fdf3bd6238c 21-22
+  s_36936abec46660::t_f8905472c3ae7b 1-20,23-109
+scripts/score_lazer.py
+  s_36936abec46660::t_5b4fdf3bd6238c 13-16
+  s_36936abec46660::t_462c9b69c03b5a 1-12,17-46
+scripts/rehearse_real.py
+  s_36936abec46660::t_5b4fdf3bd6238c 22-28
+  s_36936abec46660::t_43a04913943515 1-21,29-162
+hands_app/Sources/App/Capture.swift
+  s_36936abec46660::t_6734ebdb68cc2e 102-104
+  s_36936abec46660::t_48964b324bcf1e 1-101,105-313
+scripts/fetch_maps.py
+  s_36936abec46660::t_5b4fdf3bd6238c 18-31
+  s_36936abec46660::t_6edf6499d96214 1-17,32-62
+scripts/collect_real.py
+  s_36936abec46660::t_5b4fdf3bd6238c 35-250
+  s_36936abec46660::t_6bbc5a7c669964 1-34,251-286
+tests/test_real.py
+  s_36936abec46660::t_5b4fdf3bd6238c 23-1055
+  s_36936abec46660::t_dce5071185c951 1-22,1056-1131
+hands_app/Sources/App/Input.swift
+  s_36936abec46660::t_6734ebdb68cc2e 65-120
+  s_36936abec46660::t_e80c6a70969172 1-64,121-149
+scripts/play.py
+  s_36936abec46660::t_5b4fdf3bd6238c 18-21
+  s_36936abec46660::t_b4d58bd05fc21f 1-17,22-78
+uv.lock
+  s_36936abec46660::t_3355a5f315d088 1-1406
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fbd56690db3588852ccda59e3ea434be8f058a14",
+  "prompts": {},
+  "sessions": {
+    "s_36936abec46660": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1553ee12-ddde-4758-8f46-81602fe3d86d",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Adam Abdalla <adam1.abdalla@gmail.com>"
+    }
+  }
+}
