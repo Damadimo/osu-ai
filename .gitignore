@@ -17,6 +17,7 @@ run/
 # checkpoints and LoRA adapters; keep the model that plays
 models/*
 !models/osunet-lazer.safetensors
+!models/osunet-lazer-bg.safetensors
 adapters/
 
 # build output and the local signing keychain (holds a private key)

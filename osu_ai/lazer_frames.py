@@ -115,12 +115,16 @@ class View:
 
 
 class Canvas:
+    """The objects' layer over black (img) and how much of whatever is behind still shows through
+    each pixel (trans), so the frame over a background B is img + trans * B."""
+
     def __init__(self, view: View):
         self.view = view
         self.w, self.h = view.size
         self.f = view.f
         self.to_px = view.to_px
         self.img = np.zeros((self.h, self.w), np.float32)
+        self.trans = np.ones((self.h, self.w), np.float32)
 
     def _box(self, cx: float, cy: float, r: float):
         x0, x1 = max(int(cx - r - 1), 0), min(int(cx + r + 2), self.w)
@@ -135,6 +139,7 @@ class Canvas:
         """Alpha-composite a gray layer onto the canvas inside `region`."""
         dst = self.img[region]
         dst += (gray - dst) * alpha
+        self.trans[region] *= 1 - alpha
 
     def disc(self, c, r: float, gray: float, alpha: float) -> None:
         if alpha <= 0 or r <= 0:
@@ -229,9 +234,13 @@ def _draw_head(cv: Canvas, o: HitObject, t: float, head: _Head, s: float, slider
     c = cv.to_px(o.pos)
     k = s * cv.f * head.scale  # output px per u
     gray = CIRCLE_GRAY * _dim(o, t)
-    if slider:
-        cv.disc(c, HEAD_CORE_U * k, 0.0, head.alpha)
-        cv.ring(c, HEAD_CORE_U * k, DISC_U * k, gray, head.alpha)
+    if slider:  # one opaque texture: a gray ring around a black core, so nothing shows through the seam
+        found = cv._box(*c, DISC_U * k)
+        if found and head.alpha > 0:
+            region, d = found
+            outer = np.clip(DISC_U * k - d + 0.5, 0, 1)
+            core = np.clip(HEAD_CORE_U * k - d + 0.5, 0, 1)
+            cv.blend(region, gray * (outer - core) / np.maximum(outer, 1e-6), head.alpha * outer)
     else:
         cv.disc(c, DISC_U * k, gray, head.alpha)
 
@@ -391,9 +400,67 @@ def _draw_spinner(cv: Canvas, o: HitObject, t: float, fade: float, outcome: Outc
         cv.ring(c, SPIN_APPROACH[0] * k * cv.f, SPIN_APPROACH[1] * k * cv.f, 255.0, alpha)
 
 
+LUMA_709 = (0.2126, 0.7152, 0.0722)  # the capture's luma: BT.709 weights on gamma-encoded RGB
+BG_ZOOM = 1 + 100 / 1024  # lazer enlarges every background by this about the centre (BackgroundScreen.cs)
+
+
+def luma(rgb: np.ndarray, weights=LUMA_709) -> np.ndarray:
+    """(H, W, 3) uint8 RGB -> (H, W) float32 luma, 0-255."""
+    return rgb.astype(np.float32) @ np.asarray(weights, np.float32)
+
+
+def _gauss_blur(img: np.ndarray, sigma: float) -> np.ndarray:
+    r = int(math.ceil(3 * sigma))
+    k = np.exp(-0.5 * (np.arange(-r, r + 1) / sigma) ** 2)
+    k = (k / k.sum()).astype(np.float32)
+    for axis in (0, 1):
+        pad = [(0, 0), (0, 0)]
+        pad[axis] = (r, r)
+        p = np.pad(img, pad, mode="edge")
+        n = img.shape[axis]
+        img = sum(w * (p[i:i + n] if axis == 0 else p[:, i:i + n]) for i, w in enumerate(k))
+    return img.astype(np.float32)
+
+
+def backdrop(gray: np.ndarray, view: View = View(), dim: float = 1.0, zoom: float = BG_ZOOM,
+             offset: tuple[float, float] = (0.0, 0.0), blur_px: float = 0.0) -> np.ndarray:
+    """The map background as lazer shows it behind the playfield, at the view's size: (H, W) float32.
+
+    gray: the background's luma, scaled to cover the 640x480 virtual screen with its aspect kept
+    (scripts/prep_backgrounds.py). lazer fills the window with it, enlarges it by BG_ZOOM about the
+    centre and multiplies it by (1 - dim) in gamma-encoded values; objects then blend over it.
+    offset (virtual px) and extra zoom model parallax; blur_px is a gaussian blur in output px."""
+    hb, wb = gray.shape
+    s = min(wb / VIRTUAL[0], hb / VIRTUAL[1])  # background px per virtual px
+    w, h = view.size
+    step = s / (view.f * zoom)  # background px per output px
+    m = max(1, math.ceil(step - 1e-6))  # supersample so the lookup never shrinks, then average: area sampling
+    f = view.f * m
+
+    def axis(n_out, shift, off, n_bg):
+        v = (np.arange(n_out, dtype=np.float32) + 0.5 - n_out / 2 - shift * m) / f  # virtual px from centre
+        b = (v - off) / zoom * s + n_bg / 2 - 0.5  # background pixel coordinate
+        b = np.clip(b, 0, n_bg - 1)
+        i0 = np.minimum(b.astype(np.int64), n_bg - 2) if n_bg > 1 else np.zeros(n_out, np.int64)
+        return i0, np.clip(b - i0, 0, 1).astype(np.float32)
+
+    x0, wx = axis(w * m, view.shift[0], offset[0], wb)
+    y0, wy = axis(h * m, view.shift[1], offset[1], hb)
+    x1, y1 = np.minimum(x0 + 1, wb - 1), np.minimum(y0 + 1, hb - 1)
+    top = gray[y0][:, x0] * (1 - wx) + gray[y0][:, x1] * wx
+    bottom = gray[y1][:, x0] * (1 - wx) + gray[y1][:, x1] * wx
+    out = top * (1 - wy)[:, None] + bottom * wy[:, None]
+    if m > 1:
+        out = out.reshape(h, m, w, m).mean(axis=(1, 3))
+    if blur_px > 0.05:
+        out = _gauss_blur(out, blur_px)
+    return (out * (1 - dim)).astype(np.float32)
+
+
 def render(bm: Beatmap, t: float, outcome: Outcome | None = None, look: Look = Look(),
-           view: View = View()) -> np.ndarray:
-    """The frame at game time t: (H, W) float32 gray, 0-255."""
+           view: View = View(), background: np.ndarray | None = None) -> np.ndarray:
+    """The frame at game time t: (H, W) float32 gray, 0-255. background: what lazer shows behind
+    the playfield at the view's size (see backdrop()); None is black, dim 100%."""
     outcome = outcome if outcome is not None else perfect(bm)
     d = bm.difficulty
     preempt, s = d.preempt, d.radius / 64
@@ -417,7 +484,7 @@ def render(bm: Beatmap, t: float, outcome: Outcome | None = None, look: Look = L
             heads.append((o, head))
     for o, head in heads:  # approach circles are in a layer above all hit objects
         _draw_approach(cv, o, t, head, preempt, s)
-    return cv.img
+    return cv.img if background is None else cv.img + cv.trans * background
 
 
 def labels(bm: Beatmap, t: float, outcome: Outcome, view: View = View()):

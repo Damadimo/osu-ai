@@ -28,10 +28,11 @@ FRAME_MS = 1000 / 60
 
 class LazerSim:
     def __init__(self, bm: Beatmap, agent, look: Look = Look(), jitter_ms: float = 0.0, seed: int = 0,
-                 record: bool = False, lead_ms: float = 0.0):
+                 record: bool = False, lead_ms: float = 0.0, background: np.ndarray | None = None):
         """lead_ms: decide every press this long before it happens, as the real game requires
-        (perfectly calibrated latency: the press still lands when planned)."""
-        self.bm, self.agent, self.look = bm, agent, look
+        (perfectly calibrated latency: the press still lands when planned). background: what lazer
+        shows behind the playfield at the agent's input size (lazer_frames.backdrop), or black."""
+        self.bm, self.agent, self.look, self.background = bm, agent, look, background
         self.view = View(agent.input_size)
         self.judge = LiveJudge(bm)
         self.policy = Policy(lead_ms=lead_ms)
@@ -83,7 +84,7 @@ class LazerSim:
                 self.outcome.judged[i] = (o.time + offset, True) if j > 0 else (t, False)
 
     def step(self, t: float, dt_ms: float) -> None:
-        frame = np.clip(render(self.bm, t, self.outcome, self.look, self.view) + 0.5, 0, 255).astype(np.uint8)
+        frame = np.clip(render(self.bm, t, self.outcome, self.look, self.view, self.background) + 0.5, 0, 255).astype(np.uint8)
         if self.record:
             self.frames.append(frame)
             self.times.append(t)

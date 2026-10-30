@@ -2,6 +2,7 @@
 
   uv run scripts/lazer_setup.py            # osu! must not be running (it rewrites its config on exit)
   uv run scripts/lazer_setup.py --skin <GUID of the imported "osu-jev minimal" skin>
+  uv run scripts/lazer_setup.py --dim 0.7  # show map backgrounds at 70% dim
   uv run scripts/lazer_setup.py --restore  # put the original config back
 
 Everything set here is a normal player setting (background dim, storyboard off, ...).
@@ -90,9 +91,13 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--restore", action="store_true")
     parser.add_argument("--skin", help="skin GUID to select (list them: dotnet run --project tools/lazer_realm -c Release)")
+    parser.add_argument("--dim", type=float, default=1.0,
+                        help="background dim, 0-1 (1: black; lower shows the map background, which needs a model "
+                             "trained with backgrounds)")
     args = parser.parse_args()
     if args.skin:
         GAME["Skin"] = args.skin
+    GAME["DimLevel"] = f"{args.dim:g}"
     if running():
         raise SystemExit("quit osu! first: it writes its config back when it exits")
     for name, values in (("framework.ini", FRAMEWORK), ("game.ini", GAME)):

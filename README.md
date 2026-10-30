@@ -1,7 +1,9 @@
 # osu-ai
 
-A small vision model that plays osu!lazer on macOS from screen capture. It passed Cold Green Eyes
-[apple's Insane] (4.19★, never seen in training) with an S rank, 99.64% accuracy and no misses.
+A small vision model that plays osu!lazer on macOS from screen capture. In the real game it
+passed Cold Green Eyes [apple's Insane] (4.19★) with an S rank and 99.64%, and Bentham - Chicago
+[Sky City] (6.41★) with an A and 96.31% with the map background at full brightness. Neither map
+was in its training set.
 
 ## How it works
 
@@ -15,8 +17,9 @@ A small vision model that plays osu!lazer on macOS from screen capture. It passe
 - **Policy.** `osu_ai/policy.py` turns that into cursor moves and key presses at the predicted
   times, sent early by the measured input delay (`--latency-ms`).
 - **Game setup.** osu! runs offline, logged out, in a 1024x768 window with a plain grayscale
-  skin, 100% background dim and no storyboard, HUD or hit animations, so it looks like the
-  training frames.
+  skin and no storyboard, HUD or hit animations, so it looks like the training frames. The
+  original model needs 100% background dim; `models/osunet-lazer-bg.safetensors` also plays
+  with the map's background showing.
 - **Scoring.** After a run, lazer's own replay is exported. The hit offsets in it give the
   latency correction for the next run.
 
@@ -53,6 +56,11 @@ uv run python -c "from pathlib import Path; from osu_ai import lazer; lazer.impo
 ```bash
 uv run python -c "from osu_ai import lazer; lazer.launch()"
 uv run --extra train scripts/play_real.py data/lazer_osu/827932.osu --latency-ms 9
+
+# with map backgrounds (set the dim while osu! is closed)
+uv run scripts/lazer_setup.py --dim 0.7
+uv run --extra train scripts/play_real.py data/lazer_osu/827932.osu \
+  --weights models/osunet-lazer-bg.safetensors --latency-ms 11
 ```
 
 - Don't touch the mouse or switch apps during a run. Switching apps (or Mission Control) cuts
@@ -75,20 +83,28 @@ uv run --extra train scripts/train_lazer.py --steps 24000 --out models/osunet-la
 scripts/train_supervised.sh <out> <init> <start step> <total steps>   # same, restarting after crashes
 ```
 
-- Maps: 1,563 for training, 82 for validation and 31 held out, including every map played in the
-  real game (`data/real_maps.json`). Sources: `scripts/fetch_maps.py` and `scripts/fetch_osz.py`.
+- Maps: 1,558 for training, 82 for validation and 36 held out by whole set, including the maps
+  in `data/real_maps.json`. Sources: `scripts/fetch_maps.py` and `scripts/fetch_osz.py`.
+  Bad Apple!! was in the original model's training set by mistake, so its results aren't clean.
 - Augmentation: random plays, small zoom and shift errors, brightness, gamma, blur and noise,
   jittered and skipped frames, and extra streams and stacks.
-- The included model trained for 24,000 steps (about 2.5 hours on an M5 Pro). On the held-out
-  maps it finds the next object 99.9% of the time, with a 0.18 osu!px aim error and a 3.5 ms
-  median timing error.
+- The original model (`osunet-lazer.safetensors`) trained for 24,000 steps (about 2.5 hours on an
+  M5 Pro). On the held-out maps it finds the next object 99.9% of the time, with a 0.18 osu!px
+  aim error and a 3.5 ms median timing error.
+- Backgrounds: `scripts/prep_backgrounds.py --covers` prepares 551 training and 8 held-out
+  images (map backgrounds, lazer's defaults and set covers). 70% of frames are drawn over one at
+  5–70% brightness, composited the way lazer does. `osunet-lazer-bg.safetensors` is the original
+  model trained this way for 12,000 more steps (about 1.5 hours). On held-out maps in the
+  simulator it averages 99.8–99.97% accuracy at 40–80% dim; the original model gets 98.4–99.8%
+  and misses most spinners over a background.
 
 ## In progress
 
-- **Map backgrounds.** The model has only seen black backgrounds. The plan is to draw training
-  frames over map background images at random dim levels and retrain from the current model.
-- **Harder maps.** Next real-game targets are the 4.5★ maps in `data/real_maps.json`
-  (Koigokoro, Zen Zen Zense [Habi's Insane], Tower of Heaven).
+- **Fast bursts.** Most misses on 6★ maps are notes a quarter beat apart at 200+ BPM. In the
+  simulator, Ooi [Extreme] (6.45★) gets about 16 misses.
+- **Real game vs simulator.** Chicago scored 99.54% in the simulator but 96.31% live, with hits
+  6 ms late at `--latency-ms 11`. Next: rerun at 17, and at 70% dim to separate the background
+  (training only covered up to 70% brightness) from latency.
 - **Spinners.** One real run spun a spinner that osu! still judged a miss; not yet explained.
 - **Sign-in panel.** Make `real.Driver` close it on its own.
 

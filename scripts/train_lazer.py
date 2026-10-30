@@ -43,15 +43,38 @@ def _set_id(text: str) -> int | None:
     return None
 
 
-def map_sources() -> list[tuple[str, str]]:
-    """(name, .osu text) for every usable osu!standard map: loose files and the .osz sets."""
+def map_sources() -> list[tuple[str, str, int | None]]:
+    """(name, .osu text, set id) for every usable osu!standard map: loose files and the .osz sets.
+
+    Old .osu files carry no BeatmapSetID, so the set comes from the .osz holding the same file
+    (named <set id>.osz) or data/real_maps.json; otherwise a held-out map could slip into training."""
+    import json
+
+    sets: dict[str, int] = {}  # md5 -> set id
+    for path in sorted(glob.glob("data/osz/*.osz")):
+        if Path(path).stem.isdigit():
+            try:
+                with zipfile.ZipFile(path) as z:
+                    for name in z.namelist():
+                        if name.lower().endswith(".osu"):
+                            sets[hashlib.md5(z.read(name)).hexdigest()] = int(Path(path).stem)
+            except zipfile.BadZipFile:
+                continue
+    if Path("data/real_maps.json").exists():
+        sets.update({m["osu_md5"]: m["set_id"] for m in json.loads(Path("data/real_maps.json").read_text())})
+
+    def entry(name: str, raw: bytes):
+        text = raw.decode("utf-8-sig", errors="replace")
+        sid = _set_id(text)
+        return name, text, sid if sid is not None and sid > 0 else sets.get(hashlib.md5(raw).hexdigest())
+
     out, seen = [], set()
     for path in sorted(glob.glob("data/corpus/*.osu") + glob.glob("data/lazer_osu/*.osu")):
         raw = Path(path).read_bytes()
         key = hashlib.md5(raw).hexdigest()
         if key not in seen:
             seen.add(key)
-            out.append((path, raw.decode("utf-8-sig", errors="replace")))
+            out.append(entry(path, raw))
     for path in sorted(glob.glob("data/osz/*.osz")):
         try:
             with zipfile.ZipFile(path) as z:
@@ -61,19 +84,19 @@ def map_sources() -> list[tuple[str, str]]:
                         key = hashlib.md5(raw).hexdigest()
                         if key not in seen:
                             seen.add(key)
-                            out.append((f"{path}:{name}", raw.decode("utf-8-sig", errors="replace")))
+                            out.append(entry(f"{path}:{name}", raw))
         except zipfile.BadZipFile:
             continue
     return out
 
 
-def split(sources: list[tuple[str, str]]) -> tuple[list, list, list]:
-    """train / val (5% of non-test maps, by name hash) / test (the held-out sets)."""
+def split(sources: list[tuple[str, str, int | None]]) -> tuple[list, list, list]:
+    """train / val (5% of non-test maps, by name hash) / test (the held-out sets), as (name, text)."""
     train, val, test = [], [], []
-    for name, text in sources:
+    for name, text, sid in sources:
         if "Mode: 1" in text or "Mode: 2" in text or "Mode: 3" in text:
             continue
-        if _set_id(text) in TEST_SETS or name.startswith("data/maps/"):
+        if sid in TEST_SETS or name.startswith("data/maps/"):
             test.append((name, text))
         elif int(hashlib.md5(name.encode()).hexdigest(), 16) % 20 == 0:
             val.append((name, text))
@@ -103,17 +126,22 @@ def _hard_times(bm) -> list[float]:
 
 MAPS_PER_WORKER = 160  # parsed maps are big; each worker keeps its own random share
 
+_BGS: list = []  # paths of the map backgrounds (RGB .npy) this worker draws behind the playfield
+BG_FRAC = 0.7  # share of training samples with a background; the rest stay black (dim 100%)
 
-def _init_worker(sources: list[tuple[str, str]]) -> None:
+
+def _init_worker(sources: list[tuple[str, str]], bg_paths: list[str] = ()) -> None:
     import os
     import tempfile
 
     from osu_ai import beatmap
 
-    global _MAPS, _HARD
+    global _MAPS, _HARD, _BGS
     _MAPS, _HARD = [], []
+    _BGS = list(bg_paths)
     tmp = Path(tempfile.mkdtemp())
-    sources = random.Random(os.getpid()).sample(sources, min(len(sources), MAPS_PER_WORKER))
+    sources = sorted(random.Random(os.getpid()).sample(sources, min(len(sources), MAPS_PER_WORKER)))
+    # sorted: a split small enough to load whole (val, test) gets the same order in every worker and run
     for i, (name, text) in enumerate(sources):
         path = tmp / f"{i}.osu"
         path.write_text(text, encoding="utf-8")
@@ -142,8 +170,42 @@ def _augment(x: np.ndarray, rng: np.random.Generator) -> np.ndarray:
     return np.clip(x * 255 + 0.5, 0, 255).astype(np.uint8)
 
 
-def sample_stack(seed: int, fixed_look=None):
-    """One training example: (frames (H, W, 4) uint8, objs (n, 3), slider (3,), spinner, radius px)."""
+def _backgrounds(rng: random.Random, view, n: int, dim: float | None) -> list | None:
+    """What lazer shows behind the playfield for each of n frames, or None for black.
+
+    dim None picks the training mix: black in 1 - BG_FRAC of samples, else a random background at
+    a random dim. The background is the same in every frame of the stack, as lazer's is."""
+    from osu_ai.lazer_frames import BG_ZOOM, LUMA_709, backdrop, luma
+
+    if not _BGS or dim == 1.0 or (dim is None and rng.random() > BG_FRAC):
+        return None
+    if dim is None:
+        dim = rng.uniform(0.6, 0.95) if rng.random() < 0.6 else rng.uniform(0.3, 0.6)
+    rgb = np.load(_BGS[rng.randrange(len(_BGS))], mmap_mode="r")
+    lam = rng.uniform(0, 0.25)  # the capture's colour handling is verified only for grays: 709..601 luma
+    weights = np.array([(1 - lam) * a + lam * b + rng.gauss(0, 0.01) for a, b in zip(LUMA_709, (0.299, 0.587, 0.114))])
+    gray = luma(np.asarray(rgb), weights / weights.sum() * rng.uniform(0.97, 1.03))
+    if rng.random() < 0.5:
+        gray = gray[:, ::-1]
+    zoom, ox, oy = BG_ZOOM * rng.uniform(1.0, 1.002), rng.uniform(-0.3, 0.3), rng.uniform(-0.3, 0.3)  # parallax
+    if rng.random() < 0.2:  # variety: the background is only a distractor, so any crop of it will do
+        zoom *= rng.uniform(1.0, 1.3)
+        ox, oy = rng.uniform(-20, 20), rng.uniform(-15, 15)
+    blur = rng.uniform(0.1, 0.4)  # the capture's scaler: real frames are area-sampled plus about 0.25 px
+    if rng.random() < 0.15:
+        blur = math.hypot(blur, 3.6 * rng.uniform(0.05, 1.0))  # lazer's background blur setting
+    bars = rng.uniform(0, 1) if rng.random() < 0.03 else 0.0  # letterbox in breaks: 96 pt bars, fading
+    bg = backdrop(gray, view, dim, zoom, (ox, oy), blur)
+    if bars:
+        rows = round(view.size[1] * 96 / 768)
+        bg[:rows] *= 1 - bars
+        bg[-rows:] *= 1 - bars
+    return [bg] * n
+
+
+def sample_stack(seed: int, fixed_look=None, dim: float | None = None):
+    """One training example: (frames (H, W, 4) uint8, objs (n, 3), slider (3,), spinner, radius px).
+    dim: background dim for the whole stack (1.0 black); None draws it from the training mix."""
     from osu_ai.lazer_frames import Look, View, labels, perfect, render, sample_outcome
 
     rng = random.Random(seed)
@@ -169,7 +231,8 @@ def sample_stack(seed: int, fixed_look=None):
     for k in range(3):
         gap = min(22.0, max(12.0, rng.gauss(FRAME_MS, 1.0)))
         times.append(times[-1] - (2 * gap if k == dropped else gap))
-    frames = np.stack([render(bm, tt, outcome, look, view) for tt in reversed(times)], axis=-1)
+    bgs = _backgrounds(rng, view, 4, dim) or [None] * 4
+    frames = np.stack([render(bm, tt, outcome, look, view, bg) for tt, bg in zip(reversed(times), bgs)], axis=-1)
     objs, slider, spinner = labels(bm, t, outcome, view)
     radius_px = bm.difficulty.radius * view.f
     return _augment(frames, nrng), np.array(objs, np.float32).reshape(-1, 3), np.array(slider, np.float32), spinner, radius_px
@@ -213,16 +276,25 @@ def sample_real(seed: int):
     return x, np.array(objs, np.float32).reshape(-1, 3), np.array(slider, np.float32), spinner, bm.difficulty.radius * view.f
 
 
-def _init_both(sources, real_items) -> None:
-    _init_worker(sources)
+def _init_both(sources, real_items, bg_paths=()) -> None:
+    _init_worker(sources, bg_paths)
     _init_real(real_items)
 
 
-def make_batch(args: tuple[int, int]):
-    seed, n, real_frac = (*args, 0.0) if len(args) == 2 else args
+def _init_worker_bg(sources, real_items, bg_paths, bg_frac) -> None:
+    global BG_FRAC
+    BG_FRAC = bg_frac
+    _init_both(sources, real_items, bg_paths)
+
+
+def make_batch(args: tuple):
+    """(seed, n[, real_frac[, dim]]): dim fixes the background dim (1.0 black) for evaluation."""
+    seed, n = args[0], args[1]
+    real_frac = args[2] if len(args) > 2 else 0.0
+    dim = args[3] if len(args) > 3 else None
     n_real = int(round(n * real_frac)) if _REAL else 0
     items = [sample_real(seed * 1000 + i) for i in range(n_real)]
-    items += [sample_stack(seed * 1000 + i) for i in range(n_real, n)]
+    items += [sample_stack(seed * 1000 + i, dim=dim) for i in range(n_real, n)]
     x = np.stack([it[0] for it in items])
     return x, [it[1] for it in items], np.stack([it[2] for it in items]), np.array([it[3] for it in items], np.float32), [it[4] for it in items]
 
@@ -273,6 +345,7 @@ def evaluate(model, batches) -> dict:
 
 
 def main() -> None:
+    global BG_FRAC
     parser = argparse.ArgumentParser()
     parser.add_argument("--steps", type=int, default=30000)
     parser.add_argument("--batch", type=int, default=64)
@@ -286,6 +359,9 @@ def main() -> None:
     parser.add_argument("--real-frac", type=float, default=0.5, help="share of each batch from real footage")
     parser.add_argument("--start-step", type=int, default=0, help="resume the schedule here (with --init)")
     parser.add_argument("--save-every", type=int, default=1000)
+    parser.add_argument("--bg-frac", type=float, default=BG_FRAC,
+                        help="share of samples drawn over a map background (data/backgrounds); 0 = all black")
+    parser.add_argument("--eval-only", action="store_true", help="score --init on the test sets and stop")
     args = parser.parse_args()
 
     import mlx.core as mx
@@ -297,13 +373,21 @@ def main() -> None:
 
     mx.set_cache_limit(2 << 30)  # MLX keeps freed buffers; unbounded, that grows until macOS kills us
 
+    from osu_ai import backgrounds
+
+    BG_FRAC = args.bg_frac  # spawned workers re-import this module, so they get it through initargs too
     train, val, test = split(map_sources())
-    print(f"maps: {len(train)} train, {len(val)} val, {len(test)} held-out test", flush=True)
+    bg_train, bg_test = (backgrounds.paths("train"), backgrounds.paths("test")) if args.bg_frac > 0 else ([], [])
+    print(f"maps: {len(train)} train, {len(val)} val, {len(test)} held-out test; "
+          f"backgrounds: {len(bg_train)} train, {len(bg_test)} held-out test, in {args.bg_frac:.0%} of samples", flush=True)
     ctx = mp.get_context("spawn")
-    with ctx.Pool(2, initializer=_init_worker, initargs=(val,)) as pool:
+    with ctx.Pool(2, initializer=_init_worker_bg, initargs=(val, [], bg_train, args.bg_frac)) as pool:
         val_batches = pool.map(make_batch, [(10_000_000 + i, 100) for i in range(15)])
-    with ctx.Pool(2, initializer=_init_worker, initargs=(test,)) as pool:
-        test_batches = pool.map(make_batch, [(20_000_000 + i, 100) for i in range(15)])
+    tests = [("TEST", 1.0)] + ([(f"TEST dim {d:g}", d) for d in (0.8, 0.6, 0.4)] if bg_test else [])
+    test_batches = {}
+    with ctx.Pool(6, initializer=_init_worker, initargs=(test, bg_test)) as pool:
+        for name, d in tests:  # the same maps, times and plays at every dim
+            test_batches[name] = pool.map(make_batch, [(20_000_000 + i, 100, 0.0, d) for i in range(15)])
 
     model = OsuNet(args.width, stride=STRIDE, next_heads=True)
     if args.init:  # reuse every layer whose shape still fits (e.g. all but the new stem)
@@ -314,12 +398,18 @@ def main() -> None:
     mx.eval(model.parameters())
     print(f"OsuNet width {args.width} stride {STRIDE}: "
           f"{sum(v.size for _, v in tree_flatten(model.parameters())) / 1e6:.2f}M parameters", flush=True)
-    total = args.start_step + args.steps
-    decay = optim.cosine_decay(args.lr, total, 1e-5)
-    opt = optim.AdamW(learning_rate=lambda step: decay(step + args.start_step), weight_decay=1e-4)
-    step_fn = nn.value_and_grad(model, loss_fn)
 
-    real_train, real_val = [], []
+    def report(step: int) -> None:
+        evals = [("val", val_batches), *test_batches.items()]
+        if real_val:
+            evals.append(("REAL", real_val_batches))
+        for name, b in evals:
+            m = evaluate(model, b)
+            print(f"  {name} step {step}: found {m['found']:.1%}, aim {m['aim_px']:.2f}px, timing {m['timing_ms']:.1f}ms; "
+                  f"<300ms: median {m['near_ms']:.1f} p90 {m['near_p90']:.1f} within25 {m['near_25']:.0%}; "
+                  f"hold {m['hold']:.1%} spin {m['spin']:.1%} ball {m['ball_px']:.2f}px", flush=True)
+
+    real_val, real_train = [], []
     if args.real:
         import json
 
@@ -330,7 +420,15 @@ def main() -> None:
         if real_val:
             with ctx.Pool(2, initializer=_init_both, initargs=([], real_val)) as p:
                 real_val_batches = p.map(make_batch, [(30_000_000 + i, 100, 1.0) for i in range(15)])
-    pool = ctx.Pool(args.workers, initializer=_init_both, initargs=(train, real_train))
+    if args.eval_only:
+        report(args.start_step)
+        return
+    total = args.start_step + args.steps
+    decay = optim.cosine_decay(args.lr, total, 1e-5)
+    opt = optim.AdamW(learning_rate=lambda step: decay(step + args.start_step), weight_decay=1e-4)
+    step_fn = nn.value_and_grad(model, loss_fn)
+
+    pool = ctx.Pool(args.workers, initializer=_init_worker_bg, initargs=(train, real_train, bg_train, args.bg_frac))
     frac = args.real_frac if real_train else 0.0
     seeds = itertools.count(1 + args.start_step * 7)
     # Bounded prefetch: Pool.imap over an endless generator submits every job at once and queues
@@ -365,14 +463,7 @@ def main() -> None:
             model.save_weights(str(args.out))
             args.out.with_suffix(".step").write_text(str(args.start_step + step))  # for resuming
         if step % args.eval_every == 0 or step == args.steps:
-            evals = [("val", val_batches), ("TEST", test_batches)]
-            if real_val:
-                evals.append(("REAL", real_val_batches))
-            for name, b in evals:
-                m = evaluate(model, b)
-                print(f"  {name} step {args.start_step + step}: found {m['found']:.1%}, aim {m['aim_px']:.2f}px, timing {m['timing_ms']:.1f}ms; "
-                      f"<300ms: median {m['near_ms']:.1f} p90 {m['near_p90']:.1f} within25 {m['near_25']:.0%}; "
-                      f"hold {m['hold']:.1%} spin {m['spin']:.1%} ball {m['ball_px']:.2f}px", flush=True)
+            report(args.start_step + step)
             args.out.parent.mkdir(exist_ok=True)
             model.save_weights(str(args.out))
     pool.terminate()
